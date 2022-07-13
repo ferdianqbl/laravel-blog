@@ -8,6 +8,8 @@ Collection Function
 
   4. $collection -> update([key, value])
 
+  5. $collection -> where(key, value) -> get()
+
   
   if we update from PHP ARTISAN THINKER
 
