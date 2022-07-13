@@ -1,0 +1,30 @@
+# Blade Template
+
+    :: @extends & @yield
+      ::: @yield berisi child view / halaman2 lain
+
+          @yield(<nama_section2nya>)
+
+          --> pada halaman lainnya dapat dibuat
+          di line pertama @extends(lokasi file parent)
+          line berikutnya @section(<nama_section seperti di yield>) dan @endsection di line terakhir
+
+    :: @include(lokasi file)
+
+      Untuk menempelkan bagian2 component seperti navbar, dll
+
+    :: {{}}
+
+        Seperti php echo, tetapi menerapkan htmlspecialchars
+    
+    :: {!! !!}
+        
+        Seperti php echo, tetapi tidak menerapkan htmlspecialchars
+    
+
+# Databases
+
+    1. Model ==> seperti rancangan database kita, dengan ORM dapat berinteraksi dengan DB
+    2. Collection ==> Data hasil pengambilan dari model dapat menjadi Collection
+
+        Collection ==> Pembungkus array hasil pengambilan dari model

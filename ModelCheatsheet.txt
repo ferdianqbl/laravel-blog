@@ -1,0 +1,7 @@
+protected $fillable = []
+
+  --> Kolom apa saja yang boleh diisi, sisanya tidak boleh (dengan namaModel::create([]))
+
+protected $guarded = []
+
+  --> Kolom apa saja yang tidak boleh diisi, sisanya boleh

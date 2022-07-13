@@ -1,0 +1,11 @@
+# Migrate
+
+  1. php artisan migrate    ==> migrasi semua file di folder migration
+
+    tiap file ada method up (untuk membuat tabel) dan down untuk menghapus tabel
+
+  2. php artisan migrate:rollback ==> menjalankan fungsi down di file migration
+
+  3. php artisan migrate:fresh ==> drop semua table, lalu migrate semua tabel
+
+      :: dapat digunakan jika ada perubahan struktur pada tabel kita

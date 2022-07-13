@@ -1,0 +1,19 @@
+Collection Function
+
+    $collection = collect([isi array]);
+
+  1. $collection -> first()     ==> mengambil data array pertama
+  2. $collection -> firstWhere('keynya', $yang dicari)
+  3. $collection -> pluck('key')  ==> mengambil semua data, tetapi hanya menampilkan key tertentu
+
+  4. $collection -> update([key, value])
+
+  
+  if we update from PHP ARTISAN THINKER
+
+  $collection -> diganti namaModel::function
+
+
+## Chaining
+
+Blog::find(2)->update(['title' => 'title changed'])
