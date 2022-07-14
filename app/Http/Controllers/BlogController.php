@@ -10,7 +10,7 @@ class BlogController extends Controller
     public function showAll()
     {
         return view('blog', [
-            "title" => "Blog",
+            "title" => "Blogs",
             "blog_posts" => Blog::all(),
         ]);
     }

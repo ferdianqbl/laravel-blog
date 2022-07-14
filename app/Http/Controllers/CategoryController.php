@@ -17,9 +17,10 @@ class CategoryController extends Controller
 
     public function filteredShow(Category $category)
     {
-        return view('filteredCategory', [
-            'title' => 'Filtered Category',
+        return view('blog', [
+            'title' => "$category->category_name Category",
             'category' => $category,
+            'blog_posts' => $category->blogs,
         ]);
     }
 }

@@ -10,7 +10,7 @@ class UserController extends Controller
     public function find(User $author)
     {
         return view('blog', [
-            "title" => "Author Posts",
+            "title" => "$author->name Blogs",
             "blog_posts" => $author->blogs,
         ]);
     }

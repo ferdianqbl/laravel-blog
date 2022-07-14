@@ -2,12 +2,12 @@
 
 @section('container')
 <div class="container">
-  <h1 class="mb-5">Halaman Blog</h1>
+  <h1 class="mb-5 text-center">Halaman <span class="text-primary">{{$title}}</span></h1>
 
   <div class="row">
     @foreach($blog_posts as $post)
-    <div class="col-md-4 mb-3">
-      <div class="card shadow border-0" style="width: 18rem;">
+    <div class="col-12 mb-3">
+      <div class="card shadow border-0">
         {{-- <img src="..." class="card-img-top" alt="..."> --}}
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>

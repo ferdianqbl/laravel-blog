@@ -2,11 +2,11 @@
 
 @section('container')
 <div class="container">
-  <h1 class="mb-5">Halaman Blog</h1>
+  <h1 class="mb-5 text-center">Halaman Detail Blog</h1>
 
   <div class="row">
     <div class="col-12">
-      <div class="card">
+      <div class="card shadow border-0">
         {{-- <img src="..." class="card-img-top" alt="..."> --}}
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
