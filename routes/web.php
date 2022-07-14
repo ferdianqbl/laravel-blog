@@ -35,4 +35,5 @@ Route::get('/blog', [BlogController::class, 'showAll']);
 // single post
 Route::get('/blog/{blog:slug}', [BlogController::class, 'find']);
 
+Route::get('/categories', [CategoryController::class, 'show']);
 Route::get('/categories/{category:category_slug}', [CategoryController::class, 'filteredShow']);
