@@ -20,7 +20,7 @@ class CategoryController extends Controller
         return view('blog', [
             'title' => "$category->category_name Category",
             'category' => $category,
-            'blog_posts' => $category->blogs,
+            'blog_posts' => $category->blogs->load('author', 'category'),
         ]);
     }
 }

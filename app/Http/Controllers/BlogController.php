@@ -11,7 +11,7 @@ class BlogController extends Controller
     {
         return view('blog', [
             "title" => "Blogs",
-            "blog_posts" => Blog::all(),
+            "blog_posts" => Blog::with(['author', 'category'])->get(),
         ]);
     }
 
