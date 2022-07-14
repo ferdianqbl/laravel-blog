@@ -11,8 +11,9 @@
         {{-- <img src="..." class="card-img-top" alt="..."> --}}
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
-          <h5 class="card-subtitle text-muted">By. <a href="#" class="text-decoration-none">
-              {{ $post->user->name }}</a>,
+          <h5 class="card-subtitle text-muted">By. <a href="/authors/{{$post->author->username}}"
+              class="text-decoration-none">
+              {{ $post->author->name }}</a>,
             <a href="/categories/{{ $post->category->category_slug }}" class="text-success text-decoration-none">{{
               $post->category->category_name }}</a>
           </h5>

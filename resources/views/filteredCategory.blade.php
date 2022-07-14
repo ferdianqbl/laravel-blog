@@ -14,7 +14,7 @@
         {{-- <img src="..." class="card-img-top" alt="..."> --}}
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
-          <h5 class="card-subtitle text-muted">{{ $post->user->name }}</h5>
+          <h5 class="card-subtitle text-muted">{{ $post->author->name }}</h5>
           <p class="card-text">{{ $post->excerpt }}
           </p>
           <a href="/blog/{{ $post->slug}}" class="btn btn-primary">Details</a>

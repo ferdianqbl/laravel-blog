@@ -15,6 +15,7 @@
 
   6. php artisan make:model namaModel
   7. php artisan migrate:fresh --seed
+  8. php artisan make:factory BlogFactory
 
 Usage:
   command [options] [arguments]

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/', function () {
     return view('home', [
         "title" => "Home",
@@ -31,9 +29,9 @@ Route::get('/about', function () {
 });
 
 Route::get('/blog', [BlogController::class, 'showAll']);
-
-// single post
 Route::get('/blog/{blog:slug}', [BlogController::class, 'find']);
 
 Route::get('/categories', [CategoryController::class, 'show']);
 Route::get('/categories/{category:category_slug}', [CategoryController::class, 'filteredShow']);
+
+Route::get('/authors/{author:username}', [UserController::class, 'find']);
