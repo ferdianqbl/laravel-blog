@@ -10,7 +10,7 @@
         <div class="card-body">
           <h1 class="card-title text-center mb-3">{{ $post->title }}</h1>
           <p class="card-subtitle text-muted">By. <a href="/authors/{{$post->author->username}}"
-              class="text-decoration-none">{{ $post->author->name }}</a>,
+              class="text-decoration-none text-info">{{ $post->author->name }}</a>,
             <a href="/categories/{{$post->category->category_slug}}"
               class="text-success text-decoration-none">{{$post->category->category_name}}</a>
             <small class="text-muted d-block">Last updated {{$post->updated_at->diffForHumans()}}</small>
@@ -19,7 +19,7 @@
             class="card-img-top img-fluid my-3 rounded" alt="{{$post->category->category_name}}-img">
           <p class="card-text">{!!$post->body!!}
           </p>
-          <a href="/blog" class="btn btn-primary">Back</a>
+          <a href="/blog" class="">Back</a>
         </div>
       </div>
     </div>

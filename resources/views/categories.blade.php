@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="container">
-  <h1 class="mb-5">Halaman Category</h1>
+  <h1 class="mb-5 text-center">Halaman <span class="text-success">Categories</span></h1>
 
   <div class="row">
     @foreach ($categories as $category)
