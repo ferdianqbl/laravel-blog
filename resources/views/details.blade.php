@@ -2,20 +2,22 @@
 
 @section('container')
 <div class="container">
-  <h1 class="mb-5 text-center">Halaman Detail Blog</h1>
+  <h6 class="mb-3 text-black-50">Halaman Detail Blog</h6>
 
-  <div class="row">
-    <div class="col-12">
-      <div class="card shadow border-0">
-        {{-- <img src="..." class="card-img-top" alt="..."> --}}
+  <div class="row justify-content-center align-items-center">
+    <div class="col-8">
+      <div class="card border-0">
         <div class="card-body">
-          <h5 class="card-title">{{ $post->title }}</h5>
-          <h5 class="card-subtitle text-muted">By. <a href="/authors/{{$post->author->username}}"
+          <h1 class="card-title text-center mb-3">{{ $post->title }}</h1>
+          <p class="card-subtitle text-muted">By. <a href="/authors/{{$post->author->username}}"
               class="text-decoration-none">{{ $post->author->name }}</a>,
             <a href="/categories/{{$post->category->category_slug}}"
-              class="text-success">{{$post->category->category_name}}</a>
-          </h5>
-          <p class="card-text">{{ $post->body }}
+              class="text-success text-decoration-none">{{$post->category->category_name}}</a>
+            <small class="text-muted d-block">Last updated {{$post->updated_at->diffForHumans()}}</small>
+          </p>
+          <img src="https://source.unsplash.com/random/1200x400?{{$post->category->category_name}}"
+            class="card-img-top img-fluid my-3 rounded" alt="{{$post->category->category_name}}-img">
+          <p class="card-text">{!!$post->body!!}
           </p>
           <a href="/blog" class="btn btn-primary">Back</a>
         </div>

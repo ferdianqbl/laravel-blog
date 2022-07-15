@@ -16,7 +16,7 @@ class Blog extends Model
     //     'body',
     // ];
 
-    protected $guarded = ['id'];
+    protected $guarded = ['id'], $with = ['author', 'category'];
 
     public function category()
     {

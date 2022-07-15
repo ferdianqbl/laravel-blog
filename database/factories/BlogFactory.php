@@ -22,7 +22,7 @@ class BlogFactory extends Factory
             'title' => $this->faker->sentence(mt_rand(2, 8)),
             'slug' => $this->faker->slug(),
             'excerpt' => $this->faker->sentence(mt_rand(10, 30)),
-            'body' => $this->faker->paragraph(mt_rand(5, 10))
+            'body' => collect($this->faker->paragraphs(mt_rand(5, 10)))->map(fn ($item) => "<p>$item</p>")->implode(""),
         ];
     }
 }

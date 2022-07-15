@@ -11,7 +11,7 @@ class BlogController extends Controller
     {
         return view('blog', [
             "title" => "Blogs",
-            "blog_posts" => Blog::with(['author', 'category'])->get(),
+            "blog_posts" => Blog::latest()->get(),
         ]);
     }
 
