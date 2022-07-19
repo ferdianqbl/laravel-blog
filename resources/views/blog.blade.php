@@ -2,7 +2,18 @@
 
 @section('container')
 <div class="container">
-  <h1 class="mb-5 text-center">Halaman <span class="text-primary">{{$title}}</span></h1>
+  <h1 class="mb-3 text-center">Halaman <span class="text-primary">{{$title}}</span></h1>
+
+  <div class="row justify-content-center mb-5">
+    <div class="col-6">
+      <form action="/blog">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" name="search" value="{{request('search')}}">
+          <button class="btn btn-outline-danger" type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   @if ($blog_posts->count())
   <div class="card mb-3 border-0 shadow">
