@@ -7,11 +7,23 @@
   <div class="row justify-content-center mb-5">
     <div class="col-6">
       <form action="/blog">
+        @if (request('category'))
+        <input type="hidden" name="category" value="{{request('category')}}">
+        @endif
+        @if (request('author'))
+        <input type="hidden" name="author" value="{{request('author')}}">
+        @endif
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search" name="search" value="{{request('search')}}">
           <button class="btn btn-outline-danger" type="submit">Search</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12">
+      {{$blog_posts->links()}}
     </div>
   </div>
 
@@ -23,8 +35,8 @@
       <h3 class="card-title">{{$blog_posts[0]->title}}</h3>
       <h6 class="card-subtitle mb-2 text-muted">
         By. <a class="text-decoration-none text-info"
-          href="/authors/{{$blog_posts[0]->author->username}}">{{$blog_posts[0]->author->name}}</a>,
-        <a href="/categories/{{$blog_posts[0]->category->category_slug}}"
+          href="/blog?author={{$blog_posts[0]->author->username}}">{{$blog_posts[0]->author->name}}</a>,
+        <a href="/blog?category={{$blog_posts[0]->category->category_slug}}"
           class="text-decoration-none text-success">{{$blog_posts[0]->category->category_name}}</a>
         <small class="text-muted d-block">Last updated {{$blog_posts[0]->updated_at->diffForHumans()}}</small>
       </h6>
@@ -32,10 +44,6 @@
       <a href="/blog/{{ $blog_posts[0]->slug }}" class="btn btn-primary">Details</a>
     </div>
   </div>
-
-  @else
-  <p class="text-center fs-3">No Post Found.</p>
-  @endif
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     @foreach($blog_posts->skip(1) as $post)
@@ -45,10 +53,10 @@
           alt="{{$post->category->category_name}}-img">
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
-          <h6 class="card-subtitle text-muted">By. <a href="/authors/{{$post->author->username}}"
+          <h6 class="card-subtitle text-muted">By. <a href="/blog?author={{$post->author->username}}"
               class="text-decoration-none">
               {{ $post->author->name }}</a>,
-            <a href="/categories/{{ $post->category->category_slug }}" class="text-success text-decoration-none">{{
+            <a href="/blog?category={{ $post->category->category_slug }}" class="text-success text-decoration-none">{{
               $post->category->category_name }}</a> <small class="text-muted d-block">Last updated
               {{$post->updated_at->diffForHumans()}}</small>
             </h5>
@@ -59,6 +67,10 @@
       </div>
     </div>
     @endforeach
+
+    @else
+    <p class="text-center fs-3">No Post Found.</p>
+    @endif
   </div>
 </div>
 @endsection

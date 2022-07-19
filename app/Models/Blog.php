@@ -20,15 +20,23 @@ class Blog extends Model
 
     public function scopeFilter($query, $req)
     {
+        $query->when($req->search, function ($query, $search) {
+            return $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%")
+                    ->orWhere('body', 'like', "%$search%");
+            });
+        });
+
         $query->when($req->category, function ($query, $category) {
             return $query->whereHas('category', function ($query) use ($category) {
                 $query->where('category_slug', $category);
             });
         });
 
-        $query->when($req->search, function ($query, $search) {
-            return $query->where('title', 'like', "%{$search}%")
-                ->orWhere('body', 'like', "%{$search}%");
+        $query->when($req->author, function ($query, $author) {
+            return $query->whereHas('author', function ($query) use ($author) {
+                $query->where('username', $author);
+            });
         });
     }
 

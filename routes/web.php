@@ -19,12 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home', [
         "title" => "Home",
+        "active" => "home",
     ]);
 });
 
 Route::get('/about', function () {
     return view('about', [
         "title" => "About",
+        "active" => "about",
     ]);
 });
 
@@ -32,6 +34,3 @@ Route::get('/blog', [BlogController::class, 'showAll']);
 Route::get('/blog/{blog:slug}', [BlogController::class, 'find']);
 
 Route::get('/categories', [CategoryController::class, 'show']);
-Route::get('/categories/{category:category_slug}', [CategoryController::class, 'filteredShow']);
-
-Route::get('/authors/{author:username}', [UserController::class, 'find']);

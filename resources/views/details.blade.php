@@ -9,9 +9,9 @@
       <div class="card border-0">
         <div class="card-body">
           <h1 class="card-title text-center mb-3">{{ $post->title }}</h1>
-          <p class="card-subtitle text-muted">By. <a href="/authors/{{$post->author->username}}"
+          <p class="card-subtitle text-muted">By. <a href="/blog?author={{$post->author->username}}"
               class="text-decoration-none text-info">{{ $post->author->name }}</a>,
-            <a href="/categories/{{$post->category->category_slug}}"
+            <a href="/blog?category={{$post->category->category_slug}}"
               class="text-success text-decoration-none">{{$post->category->category_name}}</a>
             <small class="text-muted d-block">Last updated {{$post->updated_at->diffForHumans()}}</small>
           </p>
