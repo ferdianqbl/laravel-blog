@@ -1,10 +1,17 @@
 @extends('../layouts/login')
 
 @section('container')
+{{-- @dd(session()->all()) --}}
 
 <div class="container">
   <div class="row justify-content-center align-items-center">
     <div class="col-lg-4">
+      @if (session()->has('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}, {{session('username')}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @endif
       <h1 class="h3 mb-3 text-center">Please Login</h1>
       <form class="form-userData">
         <div class="form-floating">

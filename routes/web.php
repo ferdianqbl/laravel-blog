@@ -38,4 +38,6 @@ Route::get('/blog/{blog:slug}', [BlogController::class, 'find']);
 Route::get('/categories', [CategoryController::class, 'show']);
 
 Route::get('/login', [LoginController::class, 'view']);
+
 Route::get('/register', [RegisterController::class, 'view']);
+Route::post('/register', [RegisterController::class, 'store']);
