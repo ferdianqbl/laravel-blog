@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 // use App\Http\Controllers\UserController;
@@ -38,6 +39,9 @@ Route::get('/blog/{blog:slug}', [BlogController::class, 'find']);
 Route::get('/categories', [CategoryController::class, 'show']);
 
 Route::get('/login', [LoginController::class, 'view']);
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::get('/register', [RegisterController::class, 'view']);
 Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);

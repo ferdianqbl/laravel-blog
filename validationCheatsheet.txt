@@ -1,0 +1,12 @@
+redirect('/login')->with('success', 'You have successfully registered!');
+
+--> membuat session flash
+
+return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])
+
+--> masuk ke @error dengan key email di blade
+
+    @error('email')
+    @enderror
