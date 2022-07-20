@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+// use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +36,6 @@ Route::get('/blog', [BlogController::class, 'showAll']);
 Route::get('/blog/{blog:slug}', [BlogController::class, 'find']);
 
 Route::get('/categories', [CategoryController::class, 'show']);
+
+Route::get('/login', [LoginController::class, 'view']);
+Route::get('/register', [RegisterController::class, 'view']);
