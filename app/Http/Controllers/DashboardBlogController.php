@@ -14,7 +14,10 @@ class DashboardBlogController extends Controller
      */
     public function index()
     {
-        //
+        return view('/dashboard/posts/index', [
+            "title" => "Posts Editor",
+            "posts" => Blog::where('user_id', auth()->user()->id)->get()
+        ]);
     }
 
     /**
@@ -44,9 +47,12 @@ class DashboardBlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show(Blog $post)
     {
-        //
+        return view('/dashboard/posts/show', [
+            "title" => "Post Editor",
+            "post" => $post
+        ]);
     }
 
     /**

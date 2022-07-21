@@ -28,14 +28,6 @@ class BlogController extends Controller
         ]);
     }
 
-    // public function findById($id)
-    // {
-    //     return view('details', [
-    //         "title" => "Details",
-    //         "post" => Blog::find($id)
-    //     ]);
-    // }
-
     public function find(Blog $blog)
     {
         return view('details', [
