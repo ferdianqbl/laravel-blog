@@ -1,0 +1,38 @@
+--> berjalan sebelum masuk ke fungsi2 di controller pada web.php
+
+#CEK app\Http\kernel.php
+
+protected $routeMiddleware = [
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    ];
+
+    auth -> digunakan untuk mengecek user sudah login atau blm, jika sudah, lolos middleware lanjut ke app
+    guest -> digunakan untuk user yg blm login
+
+    #Pengarahan selanjutnya setelah lolos di middleware diatur di app\Http\Providers\RouteServiceProvider.php
+
+
+::: ketika pengecekan auth tidak berhasil, maka akan diarahkan ke halaman Route login. Bisa dilihat di app\middleware\authenticate.php.
+
+Sehingga dapat dilakukan penamaan Route yang mengarah ke login dengan Named route
+
+###NOTE PENTING :
+Mungkin, bagi temen-temen yang bingung saat proses autentikasi, dan bertanya "Kok laravel nya tau kita menggunakan tabel users? Kalau seandainya nama tabel kita bukan users gimana? Kalau seandainya ingin menggunakan tabel lain atau nama tabelnya beda gimana?".
+
+Kalian bisa buka folder config, trus pilih file auth.php
+Disitu defaultnya adalah 'model' => App\Models\User::class
+Kalian bisa ganti itu sesuai yang kalian mau, mau retrieving (mengambil) users nya menggunakan model / tabel apa.
+
+"Kalau aku ada multiple user tables atau models gimana?".
+tinggal kalian tambah aja source nya di file auth.php tadi.
+
+tambahan : inget ya, pak Sandhika Galih udh ngmng kalo "satu model itu merepresentasikan satu tabel".

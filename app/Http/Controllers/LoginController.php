@@ -26,9 +26,21 @@ class LoginController extends Controller
 
         if (Auth::attempt($validateData)) {
             $req->session()->regenerate();
-            return redirect()->intended('dashboard')->with('username', $validateData['username']);
+            // return redirect()->intended('dashboard')->with('username', $validateData['username']);
+            return redirect()->intended('dashboard');
         }
-
+        // dd(Auth::attempt($validateData));
         return back()->with('loginStatus', 'Login failed!');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

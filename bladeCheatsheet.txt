@@ -1,0 +1,80 @@
+# Blade Template
+
+    :: @extends & @yield
+      ::: @yield berisi child view / halaman2 lain
+
+          @yield(<nama_section2nya>)
+
+          --> pada halaman lainnya dapat dibuat
+          di line pertama @extends(lokasi file parent)
+          line berikutnya @section(<nama_section seperti di yield>) dan @endsection di line terakhir
+
+    :: @include(lokasi file)
+
+      Untuk menempelkan bagian2 component seperti navbar, dll
+
+    :: {{}}
+
+        Seperti php echo, tetapi menerapkan htmlspecialchars
+    
+    :: {!! !!}
+        
+        Seperti php echo, tetapi tidak menerapkan htmlspecialchars
+    
+
+# Databases
+
+    1. Model ==> seperti rancangan database kita, dengan ORM dapat berinteraksi dengan DB
+    2. Collection ==> Data hasil pengambilan dari model dapat menjadi Collection
+
+        Collection ==> Pembungkus array hasil pengambilan dari model
+
+
+# ERROR
+redirect('/login')->with('success', 'You have successfully registered!');
+
+--> membuat session flash
+
+return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])
+
+--> masuk ke @error dengan key email di blade
+
+    @error('email')
+    @enderror
+
+
+# AUTH AND GUEST
+
+    :: berfungsi ketika sudah melewati middleware auth
+        @auth
+        @endauth
+
+    :: berfungsi ketika sudah melewati middleware guest
+        @guest
+        @endguest
+
+    ::: keduanya bisa digabung
+
+        @auth
+                kita bisa menggunakan semua data di dalam auth();
+
+                Misal {{auth()->user()->name}}      --> mengambil nama orang yg login di tabel user
+                Misal {{auth()->user()->username}}      --> mengambil username orang yg login di tabel user
+        @else
+
+        @endauth
+
+
+        :::::NOTE PENTING :
+        Mungkin, bagi temen-temen yang bingung saat proses autentikasi, dan bertanya "Kok laravel nya tau kita menggunakan tabel users? Kalau seandainya nama tabel kita bukan users gimana? Kalau seandainya ingin menggunakan tabel lain atau nama tabelnya beda gimana?".
+
+        Kalian bisa buka folder config, trus pilih file auth.php
+        Disitu defaultnya adalah 'model' => App\Models\User::class
+        Kalian bisa ganti itu sesuai yang kalian mau, mau retrieving (mengambil) users nya menggunakan model / tabel apa.
+
+        "Kalau aku ada multiple user tables atau models gimana?".
+        tinggal kalian tambah aja source nya di file auth.php tadi.
+
+        tambahan : inget ya, pak Sandhika Galih udh ngmng kalo "satu model itu merepresentasikan satu tabel".

@@ -21,9 +21,31 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login <i class="bi bi-airplane-engines"></i></a>
+        @auth
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Welcome, {{(auth()->user()->username)}}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-journals"></i> Dashboard</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <form action="/logout" method="POST">
+                @csrf
+                <button type="submit" class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i>
+                  Logout</button>
+              </form>
+            </li>
+          </ul>
         </li>
+
+        @else
+        <li class="nav-item">
+          <a class="nav-link" href="/login"><i class="bi bi-airplane-engines"></i> Login</a>
+        </li>
+        @endauth
       </ul>
     </div>
   </div>
