@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+// use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardBlogController extends Controller
 {
@@ -16,7 +19,7 @@ class DashboardBlogController extends Controller
     {
         return view('/dashboard/posts/index', [
             "title" => "Posts Editor",
-            "posts" => Blog::where('user_id', auth()->user()->id)->get()
+            "posts" => Blog::where('user_id', auth()->user()->id)->latest()->get()
         ]);
     }
 
@@ -27,7 +30,10 @@ class DashboardBlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('/dashboard/posts/create', [
+            "title" => "Create Post",
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
@@ -36,9 +42,21 @@ class DashboardBlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        $validatedData = $req->validate([
+            'title' => 'required|max:255|unique:blogs',
+            'slug' => 'required|max:255|unique:blogs',
+            'category_id' => 'required',
+            'body' => 'required',
+        ]);
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($req->body), 100);
+
+        Blog::create($validatedData);
+
+        return redirect('dashboard/posts')->with("success", "Post created successfully");
     }
 
     /**
@@ -88,4 +106,11 @@ class DashboardBlogController extends Controller
     {
         //
     }
+
+    // public function slug(Request $req)
+    // {
+
+    //     $slug = SlugService::createSlug(Post::class, 'slug', $req->title);
+    //     return response()->json(['slug' => $slug]);
+    // }
 }

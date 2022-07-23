@@ -9,6 +9,15 @@
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   <!-- Custom styles for this template -->
   <link href="/css/dashboard.css" rel="stylesheet">
+
+  {{-- TRIX EDITOR --}}
+  <link rel="stylesheet" type="text/css" href="/css/trix.css">
+  <script type="text/javascript" src="/js/trix.js" defer></script>
+  <style>
+    trix-toolbar [data-trix-button-group="file-tools"] {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
