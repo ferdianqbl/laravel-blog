@@ -8,8 +8,14 @@
         <h1 class="card-title text-center mb-3">{{ $post->title }}</h1>
 
         <a href="/dashboard/posts" class="btn btn-info"><span data-feather="arrow-left"></span> Back to my posts</a>
-        <a href="" class="btn btn-success"><span data-feather="edit"></span> Edit</a>
-        <a href="" class="btn btn-danger"><span data-feather="trash-2"></span> Delete</a>
+        <a href="/dashboard/posts/{{$post->slug}}/edit" class="btn btn-success"><span data-feather="edit"></span>
+          Edit</a>
+        <form action="/dashboard/posts/{{$post->slug}}" method="post" class="d-inline">
+          @csrf
+          @method('DELETE')
+          <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span data-feather="trash-2"></span>
+            Delete</button>
+        </form>
 
         <img src="https://source.unsplash.com/random/1200x400?{{$post->category->category_name}}"
           class="card-img-top img-fluid my-3 rounded" alt="{{$post->category->category_name}}-img">

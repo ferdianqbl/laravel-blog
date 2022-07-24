@@ -32,8 +32,13 @@
         <td>{{$post->created_at}}</td>
         <td>
           <a href="/dashboard/posts/{{$post->slug}}" class="badge bg-info"><span data-feather="zoom-in"></span></a>
-          <a href="" class="badge bg-success"><span data-feather="edit"></span></a>
-          <a href="" class="badge bg-danger"><span data-feather="trash-2"></span></a>
+          <a href="/dashboard/posts/{{$post->slug}}/edit" class="badge bg-success"><span data-feather="edit"></span></a>
+          <form action="/dashboard/posts/{{$post->slug}}" method="POST" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="badge bg-danger d-inline border-0"
+              onclick="return confirm('Are you sure?')"><span data-feather="trash-2"></span></button>
+          </form>
         </td>
       </tr>
       @endforeach

@@ -16,6 +16,7 @@
   6. php artisan make:model namaModel
   7. php artisan migrate:fresh --seed
   8. php artisan make:factory BlogFactory
+  9. php artisan route:list   => melihat semua route yang kita punya beserta routernya
 
 Usage:
   command [options] [arguments]

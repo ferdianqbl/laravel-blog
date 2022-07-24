@@ -79,9 +79,13 @@ class DashboardBlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit(Blog $post)
     {
-        //
+        return view('/dashboard/posts/edit', [
+            "title" => "Edit Post",
+            "post" => $post,
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
@@ -91,9 +95,29 @@ class DashboardBlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $req, Blog $post)
     {
-        //
+        $rules = [
+            'category_id' => 'required',
+            'body' => 'required',
+        ];
+
+        if ($req->slug !== $post->slug) {
+            $rules['slug'] = 'required|max:255|unique:blogs';
+        }
+
+        if ($req->title !== $post->title) {
+            $rules['title'] = 'required|max:255|unique:blogs';
+        }
+
+        $validatedData = $req->validate($rules);
+
+        $validatedData['excerpt'] = Str::limit(strip_tags($req->body), 100);
+        $validatedData['user_id'] = auth()->user()->id;
+
+        Blog::where('id', $post->id)->update($validatedData);
+
+        return redirect('dashboard/posts')->with("success", "Post Edited successfully");
     }
 
     /**
@@ -102,9 +126,10 @@ class DashboardBlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy(Blog $post)
     {
-        //
+        Blog::destroy($post->id);
+        return redirect('dashboard/posts')->with("success", "Post deleted successfully");
     }
 
     // public function slug(Request $req)
