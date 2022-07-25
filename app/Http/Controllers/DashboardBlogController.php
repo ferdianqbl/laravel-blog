@@ -44,12 +44,18 @@ class DashboardBlogController extends Controller
      */
     public function store(Request $req)
     {
+        // return $req->file('image')->store('post-images');
         $validatedData = $req->validate([
             'title' => 'required|max:255|unique:blogs',
             'slug' => 'required|max:255|unique:blogs',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'category_id' => 'required',
             'body' => 'required',
         ]);
+
+        if ($req->file('image'))
+            $validatedData['image'] = $req->file('image')->store('post-images');
+
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($req->body), 100);

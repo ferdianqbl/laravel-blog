@@ -15,8 +15,17 @@
               class="text-success text-decoration-none">{{$post->category->category_name}}</a>
             <small class="text-muted d-block">Last updated {{$post->updated_at->diffForHumans()}}</small>
           </p>
+          @if ($post->image)
+          {{-- <img src="/storage/{{$post->image}}" alt="{{$post->title}}" class="card-img-top img-fluid my-3 rounded">
+          --}}
+          <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}"
+            class="card-img-top img-fluid my-3 rounded">
+          @else
           <img src="https://source.unsplash.com/random/1200x400?{{$post->category->category_name}}"
             class="card-img-top img-fluid my-3 rounded" alt="{{$post->category->category_name}}-img">
+          @endif
+
+
           <p class="card-text">{!!$post->body!!}
           </p>
           <a href="/blog" class="">Back</a>

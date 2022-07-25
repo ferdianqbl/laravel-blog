@@ -29,8 +29,16 @@
 
   @if ($blog_posts->count())
   <div class="card mb-3 border-0 shadow">
+    @if ($blog_posts[0]->image)
+    {{-- <img src="/storage/{{$post->image}}" alt="{{$post->title}}" class="card-img-top img-fluid my-3 rounded">
+    --}}
+    <img src="{{asset('storage/' . $blog_posts[0]->image)}}" alt="{{$blog_posts[0]->title}}"
+      class="card-img-top img-fluid">
+    @else
     <img src="https://source.unsplash.com/random/1200x400?{{$blog_posts[0]->category->category_name}}"
       class="card-img-top" alt="{{$blog_posts[0]->category->category_name}}-img">
+    @endif
+
     <div class="card-body text-center">
       <h3 class="card-title">{{$blog_posts[0]->title}}</h3>
       <h6 class="card-subtitle mb-2 text-muted">
@@ -49,8 +57,16 @@
     @foreach($blog_posts->skip(1) as $post)
     <div class="col mb-3">
       <div class="card shadow border-0 h-100">
+        @if ($post->image)
+        {{-- <img src="/storage/{{$post->image}}" alt="{{$post->title}}" class="card-img-top img-fluid my-3 rounded">
+        --}}
+        <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}" class="card-img-top img-fluid">
+        @else
         <img src="https://source.unsplash.com/random/500x400?{{$post->category->category_name}}" class="card-img-top"
           alt="{{$post->category->category_name}}-img">
+        @endif
+
+
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
           <h6 class="card-subtitle text-muted">By. <a href="/blog?author={{$post->author->username}}"
