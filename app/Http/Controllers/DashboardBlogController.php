@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 // use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -45,6 +46,8 @@ class DashboardBlogController extends Controller
     public function store(Request $req)
     {
         // return $req->file('image')->store('post-images');
+
+        // validate the data
         $validatedData = $req->validate([
             'title' => 'required|max:255|unique:blogs',
             'slug' => 'required|max:255|unique:blogs',
@@ -53,14 +56,15 @@ class DashboardBlogController extends Controller
             'body' => 'required',
         ]);
 
+        // jika ada file yang diupload
         if ($req->file('image'))
             $validatedData['image'] = $req->file('image')->store('post-images');
 
 
-        $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['excerpt'] = Str::limit(strip_tags($req->body), 100);
+        $validatedData['user_id'] = auth()->user()->id; // set user_id dari user yang login
+        $validatedData['excerpt'] = Str::limit(strip_tags($req->body), 100); // set excerpt dari body yang diupload
 
-        Blog::create($validatedData);
+        Blog::create($validatedData); // simpan data ke database
 
         return redirect('dashboard/posts')->with("success", "Post created successfully");
     }
@@ -106,22 +110,36 @@ class DashboardBlogController extends Controller
         $rules = [
             'category_id' => 'required',
             'body' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
         ];
 
+        // jika slug lama beda dengan slug baru
         if ($req->slug !== $post->slug) {
             $rules['slug'] = 'required|max:255|unique:blogs';
         }
 
+        //jika title lama beda dengan title baru
         if ($req->title !== $post->title) {
             $rules['title'] = 'required|max:255|unique:blogs';
         }
 
+        // validasi
         $validatedData = $req->validate($rules);
 
-        $validatedData['excerpt'] = Str::limit(strip_tags($req->body), 100);
-        $validatedData['user_id'] = auth()->user()->id;
+        // jika ada file yang diupload
+        if ($req->file('image')) {
 
-        Blog::where('id', $post->id)->update($validatedData);
+            // hapus file lama yang diambil dari database jika ada atau tidak bernilai null
+            if ($post->image)
+                Storage::delete($post->image);
+
+            // upload file baru ke public
+            $validatedData['image'] = $req->file('image')->store('post-images');
+        }
+        $validatedData['excerpt'] = Str::limit(strip_tags($req->body), 100); // excerpt dari body
+        $validatedData['user_id'] = auth()->user()->id; // user_id dari user yang login
+
+        Blog::where('id', $post->id)->update($validatedData); // update data berdasarkan id
 
         return redirect('dashboard/posts')->with("success", "Post Edited successfully");
     }
@@ -134,7 +152,9 @@ class DashboardBlogController extends Controller
      */
     public function destroy(Blog $post)
     {
-        Blog::destroy($post->id);
+        if ($post->image)
+            Storage::delete($post->image); // hapus file yang ada di public/post-images
+        Blog::destroy($post->id); // hapus data dari database
         return redirect('dashboard/posts')->with("success", "Post deleted successfully");
     }
 

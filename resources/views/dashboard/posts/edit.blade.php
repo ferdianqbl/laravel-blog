@@ -4,7 +4,7 @@
   <h1 class="h2">Edit Post</h1>
 </div>
 <div class="col-lg-8 mb-5">
-  <form method="POST" action="/dashboard/posts/{{$post->slug}}">
+  <form method="POST" action="/dashboard/posts/{{$post->slug}}" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     <div class="mb-3">
@@ -41,22 +41,40 @@
         @endforeach
       </select>
     </div>
-    <div class="mb-3">
-      <label for="body" class="form-label">Body</label>
-      @error('body')
-      <p class="text-danger">{{$message}}</p>
-      @enderror
-      <input id="body" value="{{old('body', $post->body)}}" type="hidden" name="body" required>
-      <trix-editor input="body" class="trix-content"></trix-editor>
 
-      @error('body')
+    <div class="mb-3">
+      <label for="image" class="form-label">Add Image</label>
+
+      @if ($post->image)
+      <img src="/storage/{{$post->image}}" class="img-preview img-fluid col-sm-5 d-block mb-3">
+      @else
+
+      <img class="img-preview img-fluid col-sm-5">
+      @endif
+      <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image"
+        onchange="previewImage()">
+
+      @error('image')
       <div class="invalid-feedback mb-3">
         {{ $message }}
       </div>
       @enderror
+    </div <div class="mb-3">
+    <label for="body" class="form-label">Body</label>
+    @error('body')
+    <p class="text-danger">{{$message}}</p>
+    @enderror
+    <input id="body" value="{{old('body', $post->body)}}" type="hidden" name="body" required>
+    <trix-editor input="body" class="trix-content"></trix-editor>
+
+    @error('body')
+    <div class="invalid-feedback mb-3">
+      {{ $message }}
     </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-  </form>
+    @enderror
+</div>
+<button type="submit" class="btn btn-primary">Update</button>
+</form>
 </div>
 
 <script>
@@ -70,5 +88,16 @@
   document.addEventListener('trix-file-accept', function(e) {
     e.preventDefault(); 
   });
+
+  function previewImage() {
+    const inputImage = document.getElementById('image');
+    const imagePreview = document.querySelector('.img-preview');
+
+    imagePreview.style.display = 'block';
+    imagePreview.style.marginBottom = '3rem';
+
+    const blob = URL.createObjectURL(inputImage.files[0]);
+    imagePreview.src = blob;
+  }
 </script>
 @endsection
