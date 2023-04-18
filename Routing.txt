@@ -1,0 +1,7 @@
+Route::resource('/dashboard/posts', DashboardBlogController::class)->middleware('auth');
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('auth');
+
+Route::resource --> agar fitur CRUD langsung bisa digunakan
+jika ingin ada fitur yang tidak ingin digunakan tambahkan except()
+
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('auth');

@@ -18,21 +18,16 @@ protected $routeMiddleware = [
     auth -> digunakan untuk mengecek user sudah login atau blm, jika sudah, lolos middleware lanjut ke app
     guest -> digunakan untuk user yg blm login
 
-    #Pengarahan selanjutnya setelah lolos di middleware diatur di app\Http\Providers\RouteServiceProvider.php
+    #Pengarahan selanjutnya setelah lolos di middleware diatur di app\Http\Providers\RouteServiceProvider.php   ==> default pengarahan ke halaman home
+
+        lokasi pengarahan bisa diubah di file tsb
 
 
-::: ketika pengecekan auth tidak berhasil, maka akan diarahkan ke halaman Route login. Bisa dilihat di app\middleware\authenticate.php.
+::: ketika pengecekan auth tidak berhasil, maka akan diarahkan ke halaman Route login. Bisa dilihat di app\middleware\authenticate.php. Sehingga dapat dilakukan penamaan Route yang mengarah ke login dengan Named route
 
-Sehingga dapat dilakukan penamaan Route yang mengarah ke login dengan Named route
 
-###NOTE PENTING :
-Mungkin, bagi temen-temen yang bingung saat proses autentikasi, dan bertanya "Kok laravel nya tau kita menggunakan tabel users? Kalau seandainya nama tabel kita bukan users gimana? Kalau seandainya ingin menggunakan tabel lain atau nama tabelnya beda gimana?".
-
-Kalian bisa buka folder config, trus pilih file auth.php
-Disitu defaultnya adalah 'model' => App\Models\User::class
-Kalian bisa ganti itu sesuai yang kalian mau, mau retrieving (mengambil) users nya menggunakan model / tabel apa.
-
-"Kalau aku ada multiple user tables atau models gimana?".
-tinggal kalian tambah aja source nya di file auth.php tadi.
-
-tambahan : inget ya, pak Sandhika Galih udh ngmng kalo "satu model itu merepresentasikan satu tabel".
+### CONTROLLER
+if(auth()->guest())     ==> return true if not login
+if(auth()->auth())     ==> return true if login
+if(auth()->check())     ==> return true if login
+if(!auth()->check())     ==> return false if not login
